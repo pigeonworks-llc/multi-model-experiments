@@ -1,0 +1,28 @@
+_min_copier_version: "9.0.0"
+
+experiment_name:
+  type: str
+  help: "Experiment name (kebab-case, e.g. my-experiment)"
+  validator: "{% if not experiment_name | regex_search('^[a-z][a-z0-9-]+$') %}Must be kebab-case{% endif %}"
+
+description:
+  type: str
+  help: "Brief description of the experiment"
+
+models:
+  type: str
+  choices:
+    "Claude + Gemini + Grok (3社)": three
+    "Claude + Grok (2社)": two
+    "カスタム": custom
+  default: "three"
+
+prompt_count:
+  type: int
+  help: "Number of prompts in the experiment"
+  default: 10
+
+_subdirectory: "template"
+_skip_if_exists:
+  - ".env"
+  - "results/"
